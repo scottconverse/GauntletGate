@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Temporary audit artifacts (the skill keeps these separate from product source)
+AUDIT_PLAYWRIGHT_INTERFACE_WIRING.md
+*.audit-tmp/
+.playwright/
+test-results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
