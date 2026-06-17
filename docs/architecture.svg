@@ -1,105 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1180" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1120" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
   <style>
-    .bg    { fill:#ffffff; }
-    .phase { fill:#f6f8fa; stroke:#d0d7de; stroke-width:1.5; rx:10; }
-    .acc   { fill:#fff7ed; stroke:#f59e0b; stroke-width:2; rx:10; }
-    .danger{ fill:#fef3f2; stroke:#d92d20; stroke-width:2; rx:10; }
-    .out   { fill:#eef6ff; stroke:#0969da; stroke-width:2; rx:10; }
-    .t     { fill:#1f2328; font-size:15px; }
-    .tb    { fill:#1f2328; font-size:15px; font-weight:700; }
-    .sm    { fill:#57606a; font-size:12.5px; }
-    .accT  { fill:#9a3412; font-size:12.5px; font-weight:600; }
-    .dgT   { fill:#912018; font-size:12.5px; font-weight:600; }
-    .num   { fill:#0969da; font-size:13px; font-weight:700; }
-    .arr   { stroke:#6e7781; stroke-width:2; fill:none; marker-end:url(#a); }
-    .arrR  { stroke:#d92d20; stroke-width:2; fill:none; marker-end:url(#ar); }
-    .gate  { fill:#fffbe6; stroke:#9a6700; stroke-width:2; }
-    .gateT { fill:#7a5c00; font-size:13px; font-weight:700; }
-    .title { fill:#1f2328; font-size:22px; font-weight:800; }
-    .sub   { fill:#57606a; font-size:13.5px; }
+    .bg{fill:#ffffff}
+    .cmd{fill:#eef6ff;stroke:#0969da;stroke-width:2;rx:10}
+    .lane{fill:#f6f8fa;stroke:#d0d7de;stroke-width:1.5;rx:10}
+    .acc{fill:#fff7ed;stroke:#f59e0b;stroke-width:2;rx:10}
+    .back{fill:#f3f0ff;stroke:#8957e5;stroke-width:1.5;rx:10}
+    .ok{fill:#eaf7ee;stroke:#1a7f37;stroke-width:2;rx:10}
+    .warn{fill:#fff8e6;stroke:#9a6700;stroke-width:2;rx:10}
+    .bad{fill:#fef3f2;stroke:#d92d20;stroke-width:2;rx:10}
+    .t{fill:#1f2328;font-size:15px}
+    .tb{fill:#1f2328;font-size:15px;font-weight:700}
+    .sm{fill:#57606a;font-size:12.5px}
+    .accT{fill:#9a3412;font-size:12px;font-weight:600}
+    .title{fill:#1f2328;font-size:22px;font-weight:800}
+    .sub{fill:#57606a;font-size:13.5px}
+    .arr{stroke:#6e7781;stroke-width:2;fill:none;marker-end:url(#a)}
+    .arrA{stroke:#f59e0b;stroke-width:2;fill:none;marker-end:url(#aA);stroke-dasharray:5 4}
+    .lab{fill:#57606a;font-size:11.5px}
+    .pill{fill:#1f2328;font-size:12px;font-weight:700}
   </style>
   <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6e7781"/></marker>
-  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#d92d20"/></marker>
+  <marker id="aA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f59e0b"/></marker>
 
-  <rect class="bg" x="0" y="0" width="880" height="1180"/>
-  <text class="title" x="40" y="48">FirstRunWalkthrough — audit pipeline</text>
-  <text class="sub"   x="40" y="72">A full interface-wiring walkthrough whose verdict is gated on a verified first-run reality.</text>
+  <rect class="bg" x="0" y="0" width="900" height="1120"/>
+  <text class="title" x="40" y="46">GauntletGate — the stage-gate</text>
+  <text class="sub" x="40" y="70">One command. The argument picks the lanes. Only the full run can clear a product to advance.</text>
 
-  <!-- 1 -->
-  <rect class="phase" x="180" y="100" width="520" height="78" rx="10"/>
-  <text class="num" x="200" y="128">1</text>
-  <text class="tb"  x="224" y="128">Build the product model</text>
-  <text class="sm"  x="224" y="150">Purpose, roles, workflows, promises — and</text>
-  <text class="accT" x="224" y="168">every external dependency + first-run gate (what happens when ABSENT?)</text>
-  <path class="arr" d="M440 178 L440 208"/>
+  <!-- command -->
+  <rect class="cmd" x="300" y="92" width="300" height="56" rx="10"/>
+  <text class="tb" x="450" y="118" text-anchor="middle">/gauntletgate &lt;args&gt;</text>
+  <text class="sm" x="450" y="137" text-anchor="middle">all · lite · walkthrough · full · any combo  (bare = all)</text>
 
-  <!-- 2 -->
-  <rect class="acc" x="180" y="210" width="520" height="86" rx="10"/>
-  <text class="num" x="200" y="238">2</text>
-  <text class="tb"  x="224" y="238">Bring up the app — and VERIFY the environment</text>
-  <text class="accT" x="224" y="260">Prove the clean profile was actually used (not silently ignored)</text>
-  <text class="accT" x="224" y="278">Probe each dependency: present / ABSENT — measured, not assumed</text>
-  <path class="arr" d="M440 296 L440 326"/>
+  <!-- dispatch arrows to lanes -->
+  <path class="arr" d="M380 148 L210 196"/>
+  <path class="arr" d="M450 148 L450 196"/>
+  <path class="arr" d="M520 148 L690 196"/>
 
-  <!-- GATE 1 -->
-  <polygon class="gate" points="440,330 600,372 440,414 280,372"/>
-  <text class="gateT" x="440" y="368" text-anchor="middle">Clean first-run state</text>
-  <text class="gateT" x="440" y="386" text-anchor="middle">VERIFIED?</text>
-  <!-- gate no -> invalid -->
-  <path class="arrR" d="M600 372 L690 372"/>
-  <rect class="danger" x="690" y="338" width="170" height="70" rx="10"/>
-  <text class="dgT" x="700" y="364">NO →</text>
-  <text class="dgT" x="700" y="382">first-run coverage</text>
-  <text class="dgT" x="700" y="400">INVALID (never "clean")</text>
-  <!-- gate yes -->
-  <text class="sm" x="452" y="432">YES ↓</text>
-  <path class="arr" d="M440 414 L440 444"/>
+  <!-- LITE -->
+  <rect class="lane" x="60" y="198" width="280" height="96" rx="10"/>
+  <text class="pill" x="78" y="224">LITE</text>
+  <text class="sm" x="78" y="246">fast single-pass on a change/slice</text>
+  <text class="sm" x="78" y="264">first-run-aware · light · inline</text>
+  <text class="accT" x="78" y="284">feeder in `all`; never the gate alone</text>
 
-  <!-- 3 -->
-  <rect class="acc" x="150" y="446" width="580" height="104" rx="10"/>
-  <text class="num" x="170" y="474">3</text>
-  <text class="tb"  x="194" y="474">Zero-state / first-run pass  +  provisioning matrix  (MANDATORY)</text>
-  <text class="accT" x="194" y="496">Fresh profile · empty data · every dependency ABSENT · flags unset</text>
-  <text class="sm"  x="194" y="514">Walk onboarding + try the core feature with NOTHING set up.</text>
-  <text class="dgT" x="194" y="532">A first-run dead-end on the core feature = BLOCKER. Matrix: first-run × dep-absent × empty × offline.</text>
-  <path class="arr" d="M440 550 L440 580"/>
+  <!-- WALKTHROUGH -->
+  <rect class="acc" x="356" y="198" width="280" height="96" rx="10"/>
+  <text class="pill" x="374" y="224">WALKTHROUGH</text>
+  <text class="sm" x="374" y="246">first-run-truth + wiring runtime audit</text>
+  <text class="accT" x="374" y="266">constructs + VERIFIES first-run state;</text>
+  <text class="accT" x="374" y="284">walks with dependencies ABSENT</text>
 
-  <!-- 4 -->
-  <rect class="phase" x="180" y="582" width="520" height="58" rx="10"/>
-  <text class="num" x="200" y="608">4</text>
-  <text class="t"   x="224" y="608">Explore with Playwright</text>
-  <text class="sm"  x="224" y="628">All routes, forms, states, nav — happy paths and adversarial paths.</text>
-  <path class="arr" d="M440 640 L440 668"/>
+  <!-- FULL -->
+  <rect class="lane" x="652" y="198" width="280" height="96" rx="10"/>
+  <text class="pill" x="670" y="224">FULL</text>
+  <text class="sm" x="670" y="246">5-role adversarial deep audit</text>
+  <text class="sm" x="670" y="264">eng · security · perf · tests · docs · QA</text>
+  <text class="accT" x="670" y="284">heavy · multi-agent · billed</text>
 
-  <!-- 5 -->
-  <rect class="phase" x="180" y="670" width="520" height="58" rx="10"/>
-  <text class="num" x="200" y="696">5</text>
-  <text class="t"   x="224" y="696">Cross-check wiring</text>
-  <text class="sm"  x="224" y="716">UI → route → API → service → schema → persistence. Inert controls, stubs, dead routes.</text>
-  <path class="arr" d="M440 728 L440 756"/>
+  <!-- walkthrough -> full consume arrow -->
+  <path class="arrA" d="M636 246 L652 246"/>
+  <text class="lab" x="600" y="320" text-anchor="middle">Full CONSUMES the Walkthrough report</text>
+  <text class="lab" x="600" y="336" text-anchor="middle">(it doesn't re-walk the UI)</text>
 
-  <!-- 6 -->
-  <rect class="phase" x="180" y="758" width="520" height="58" rx="10"/>
-  <text class="num" x="200" y="784">6</text>
-  <text class="t"   x="224" y="784">Cross-check docs &amp; design</text>
-  <text class="sm"  x="224" y="804">Promised vs. implemented vs. wired vs. broken — classified, with evidence.</text>
-  <path class="arr" d="M440 816 L440 844"/>
+  <!-- shared backbone -->
+  <rect class="back" x="60" y="360" width="872" height="74" rx="10"/>
+  <text class="tb" x="80" y="386">Shared backbone — one source of truth for all three lanes</text>
+  <text class="sm" x="80" y="408">① the first-run rule (verify the clean/dependency-absent state; provisioned dev box is disqualifying)</text>
+  <text class="sm" x="80" y="426">② the environment-provisioning attestation (gates the first-run verdict)   ③ one severity framework</text>
+  <path class="arr" d="M200 360 L200 300"/>
+  <path class="arr" d="M496 360 L496 300"/>
+  <path class="arr" d="M792 360 L792 300"/>
 
-  <!-- 7 -->
-  <rect class="phase" x="180" y="846" width="520" height="58" rx="10"/>
-  <text class="num" x="200" y="872">7</text>
-  <text class="t"   x="224" y="872">Assess tests</text>
-  <text class="sm"  x="224" y="892">What the tests actually prove; render-only / pass-despite-broken; highest-value gaps.</text>
-  <path class="arr" d="M440 904 L440 934"/>
+  <!-- synthesize -->
+  <path class="arr" d="M200 294 L200 330"/>
+  <path class="arr" d="M496 460 L496 486"/>
+  <rect class="cmd" x="296" y="488" width="308" height="58" rx="10"/>
+  <text class="tb" x="450" y="514" text-anchor="middle">Synthesize → one gate report</text>
+  <text class="sm" x="450" y="533" text-anchor="middle">verdict · attestation · findings · punch list · watchlist</text>
+  <path class="arr" d="M450 546 L450 580"/>
 
-  <!-- OUTPUT -->
-  <rect class="out" x="150" y="936" width="580" height="120" rx="10"/>
-  <text class="tb" x="170" y="964">Report  (evidence-backed)</text>
-  <text class="t"  x="170" y="988">Verdict gate: can a brand-new user reach the core feature?</text>
-  <text class="sm" x="170" y="1008">Required: verified environment attestation · zero-state / first-run section · provisioning matrix</text>
-  <text class="sm" x="170" y="1028">Numbered findings (route · expected · actual · evidence · cause · fix · test)</text>
-  <text class="sm" x="170" y="1046">Docs/design cross-check · test reality · optional wiring map</text>
+  <!-- verdict diamond -->
+  <polygon class="warn" points="450,584 640,636 450,688 260,636"/>
+  <text class="tb" x="450" y="630" text-anchor="middle">Did `all` run, at 0 Blocker / 0 Critical,</text>
+  <text class="tb" x="450" y="650" text-anchor="middle">first-run VALID + reachable?</text>
 
-  <text class="sub" x="40" y="1100">Amber = the first-run discipline ordinary walkthroughs skip.  Red = the run is disqualified from reporting "clean".</text>
-  <text class="sub" x="40" y="1122">Mode: audit only — it does not modify product source unless you explicitly switch it to repair mode.</text>
+  <!-- outcomes -->
+  <path class="arr" d="M450 688 L450 724"/>
+  <rect class="ok" x="300" y="726" width="300" height="60" rx="10"/>
+  <text class="tb" x="450" y="752" text-anchor="middle" fill="#1a7f37">✅ CLEAR TO ADVANCE</text>
+  <text class="sm" x="450" y="772" text-anchor="middle">only the full run earns this</text>
+
+  <path class="arr" d="M260 636 L150 636 L150 800"/>
+  <rect class="warn" x="60" y="802" width="300" height="60" rx="10"/>
+  <text class="tb" x="210" y="828" text-anchor="middle" fill="#9a6700">⚠️ PARTIAL CHECK</text>
+  <text class="sm" x="210" y="848" text-anchor="middle">any run missing a required lane — not a gate</text>
+
+  <path class="arr" d="M640 636 L750 636 L750 800"/>
+  <rect class="bad" x="600" y="802" width="300" height="60" rx="10"/>
+  <text class="tb" x="750" y="828" text-anchor="middle" fill="#d92d20">⛔ DO NOT ADVANCE</text>
+  <text class="sm" x="750" y="848" text-anchor="middle">any Blocker/Critical or INVALID first-run</text>
+
+  <text class="sub" x="40" y="912">Amber = the first-run discipline ordinary checks skip.  Adversarial by default: the gate's job is to block advancement, not wave it through.</text>
+  <text class="sub" x="40" y="934">Audit-only: GauntletGate does not modify product source unless explicitly switched to repair mode.</text>
 </svg>

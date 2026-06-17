@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>FirstRunWalkthrough — a walkthrough audit that won't pass a product broken for new users</title>
-<meta name="description" content="A Claude Code / Codex skill that drives your app with Playwright and refuses to call it clean when a brand-new user hits a dead-end."/>
+<title>GauntletGate — an adversarial stage-gate your product must survive to advance</title>
+<meta name="description" content="One command, three lanes. A Claude Code / Codex skill that gates a stage, sprint, or release — and won't clear a product that's broken for new users."/>
 <style>
-  :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--mut:#9198a1;--acc:#f59e0b;--accink:#1a1206;--blue:#58a6ff;--danger:#ff7b72;}
+  :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--mut:#9198a1;--acc:#f59e0b;--accink:#1a1206;--blue:#58a6ff;--ok:#3fb950;--bad:#ff7b72;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
   header{padding:64px 0 36px;border-bottom:1px solid var(--line)}
   .tag{display:inline-block;font-size:13px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:20px}
   h1{font-size:40px;line-height:1.15;margin:0 0 14px;font-weight:800}
@@ -21,17 +21,18 @@
   .btn.ghost{border:1px solid var(--line);color:var(--ink)}
   section{padding:40px 0;border-bottom:1px solid var(--line)}
   h2{font-size:24px;margin:0 0 14px}
-  p{color:#c9d1d9}
-  .lead{color:var(--mut)}
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-  @media(max-width:620px){.cards{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
-  .card.acc{border-color:var(--acc)}
-  .card h3{margin:0 0 6px;font-size:16px}
-  .card.acc h3{color:var(--acc)}
-  .card p{margin:0;font-size:14.5px;color:var(--mut)}
-  code,pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  p{color:#c9d1d9}.lead{color:var(--mut)}
   pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;font-size:14px;color:#d6dee8}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14.5px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600}
+  .v{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px}
+  @media(max-width:640px){.v{grid-template-columns:1fr}}
+  .vc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+  .vc h3{margin:0 0 6px;font-size:15px}
+  .vc.ok h3{color:var(--ok)} .vc.acc h3{color:var(--acc)} .vc.bad h3{color:var(--bad)}
+  .vc p{margin:0;font-size:13.5px;color:var(--mut)}
   .diagram{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:8px}
   .diagram img{width:100%;display:block}
   .note{background:#13233b;border:1px solid #1f3a5f;border-radius:10px;padding:16px;color:#cdd9e5;font-size:15px}
@@ -40,79 +41,82 @@
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <div class="tag">v0.1.0 · MIT · Claude Code &amp; Codex skill</div>
-    <h1>A walkthrough audit that won't call a product <span class="em">"clean"</span> when it's broken for new users.</h1>
-    <p class="sub">FirstRunWalkthrough drives your app with Playwright and reads your repo as the source of truth — then,
-      unlike an ordinary smoke test, it <strong>constructs and verifies the real first-run state</strong> and walks your
-      product with its dependencies <strong>absent</strong>. The new-user dead-ends a dev box hides can't slip past it.</p>
-    <div class="btns">
-      <a class="btn primary" href="https://github.com/scottconverse/FirstRunWalkthrough">Get it on GitHub</a>
-      <a class="btn ghost" href="https://github.com/scottconverse/FirstRunWalkthrough/blob/main/docs/MANUAL.md">Read the manual</a>
-    </div>
+<header><div class="wrap">
+  <div class="tag">v0.1.0 · MIT · Claude Code &amp; Codex skill</div>
+  <h1>An adversarial <span class="em">stage-gate</span> your product must survive to advance.</h1>
+  <p class="sub">GauntletGate is one command with three lanes. Run it at the end of a stage, sprint, or release —
+    the product doesn't advance until it passes. It reads your repo as truth, drives your app with Playwright, and
+    <strong>won't clear a product that's broken for a brand-new user.</strong></p>
+  <div class="btns">
+    <a class="btn primary" href="https://github.com/scottconverse/GauntletGate">Get it on GitHub</a>
+    <a class="btn ghost" href="https://github.com/scottconverse/GauntletGate/blob/main/docs/MANUAL.md">Read the manual</a>
   </div>
-</header>
+</div></header>
 
 <section><div class="wrap">
-  <h2>The problem</h2>
-  <p class="lead">A walkthrough run on the developer's machine audits a product that already works — database seeded,
-    model server running, license activated, settings filled in. So it reports clean. Then a real new user installs it,
-    opens it, and hits a wall on the first screen: a disabled button, a "go install X yourself" message, a blank page.</p>
-  <p>This skill exists because that happened — a product was reported <strong>"near-clean (1 Minor)"</strong> while a
-    brand-new user with no model server hit an immediate dead-end. The audit ran on a provisioned dev box, and its
-    "clean profile" isolation had silently failed, so it secretly read the real, working profile.</p>
+  <h2>One command, three lanes</h2>
+  <p class="lead"><code>/gauntletgate &lt;args&gt;</code> — pick any subset. Bare <code>/gauntletgate</code> = <code>all</code>.</p>
+  <table>
+    <tr><th>arg</th><th>lane</th><th>what it does</th><th>weight</th></tr>
+    <tr><td><code>lite</code></td><td>Lite</td><td>fast single-pass on a change/slice (first-run-aware)</td><td>light, inline</td></tr>
+    <tr><td><code>walkthrough</code></td><td>Walkthrough</td><td>first-run-truth + interface-wiring runtime audit</td><td>light–medium</td></tr>
+    <tr><td><code>full</code></td><td>Full</td><td>5-role adversarial deep audit (eng / security / perf / tests / docs / QA)</td><td>heavy, billed</td></tr>
+    <tr><td><code>all</code></td><td>all three</td><td>Lite → Walkthrough → Full → one gate verdict</td><td>heavy</td></tr>
+  </table>
+  <p class="lead" style="margin-top:14px">The lanes compose: <strong>Full consumes the Walkthrough report</strong> instead of re-walking the UI, so they compound rather than overlap.</p>
 </div></section>
 
 <section><div class="wrap">
-  <h2>What it does differently</h2>
-  <div class="cards">
-    <div class="card acc"><h3>Verifies the first-run state</h3><p>Fresh profile, empty data, dependencies absent — and it
-      <em>proves</em> the app actually used the clean state instead of trusting an override that may have silently failed.</p></div>
-    <div class="card acc"><h3>Walks with dependencies ABSENT</h3><p>The new-user reality, where dead-ends live — not just
-      the convenient state where everything is already installed.</p></div>
-    <div class="card acc"><h3>A dev box is disqualifying</h3><p>If a clean first-run state can't be verified, the run is
-      marked <strong>INVALID</strong> for first-run — it is never allowed to report "clean."</p></div>
-    <div class="card acc"><h3>Dead-end = Blocker</h3><p>A core feature a new user can't reach by following the in-product
-      path is a Blocker, not a footnote.</p></div>
+  <h2>The verdict</h2>
+  <div class="v">
+    <div class="vc ok"><h3>✅ CLEAR TO ADVANCE</h3><p>Only when <code>all</code> ran — Walkthrough <em>and</em> Full — at 0 Blocker / 0 Critical, first-run valid and reachable by a new user.</p></div>
+    <div class="vc acc"><h3>⚠️ PARTIAL CHECK</h3><p>Any run missing a required lane. Reports findings, but is explicitly <strong>not</strong> an advancement gate. A cheap run can't masquerade as the full gate.</p></div>
+    <div class="vc bad"><h3>⛔ DO NOT ADVANCE</h3><p>Any Blocker/Critical, or invalid first-run coverage on a product with a first-run surface — plus the punch list to clear before a re-run.</p></div>
   </div>
-  <p class="lead" style="margin-top:18px">All of that sits on top of a thorough interface-wiring audit: routes, forms,
-    state, backend wiring, docs/design cross-check, and test reality.</p>
 </div></section>
 
 <section><div class="wrap">
-  <h2>The audit pipeline</h2>
-  <p class="lead">Two gates. The amber stages are the first-run discipline ordinary walkthroughs skip; the red branch is
-    where a run disqualifies itself from reporting "clean."</p>
-  <div class="diagram"><img src="architecture.svg" alt="FirstRunWalkthrough audit pipeline diagram"/></div>
+  <h2>How it fits together</h2>
+  <div class="diagram"><img src="architecture.svg" alt="GauntletGate architecture: command dispatch, three lanes, shared backbone, verdict logic"/></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Why it exists — the first-run spine</h2>
+  <p class="lead">The most expensive defect is the one a developer never sees, because the dev box is already set up.
+    GauntletGate was built after a real miss: a product reported <strong>"near-clean (1 Minor)"</strong> while a
+    brand-new user with no model server hit an immediate dead-end — the check ran on a provisioned dev box whose
+    "clean profile" isolation had silently failed.</p>
+  <p>So every lane that touches a first-run / onboarding / dependency / empty-data surface must construct and
+    <strong>verify</strong> the real first-run state, walk the product with dependencies <strong>absent</strong>,
+    treat a provisioned dev box as <strong>disqualifying</strong>, and file a first-run dead-end on the core feature
+    as a <strong>Blocker</strong>. One shared standard, obeyed by all three lanes.</p>
 </div></section>
 
 <section><div class="wrap">
   <h2>Install &amp; run</h2>
-  <pre>python install.py            # → ~/.claude/skills/walkthrough/  (Claude Code, every project)
-# or, project-only:
+  <pre>python install.py            # -> ~/.claude/skills/gauntletgate/  (Claude Code, every project)
+# or project-only:
 python install.py --project /path/to/your/project
 
 # then, in a fresh session:
-/walkthrough                 # or: "do a full UI walkthrough + interface-wiring audit"</pre>
-  <p class="lead">You get an evidence-backed report: a verdict that states up front whether a new user can reach the core
-    feature, a verified environment attestation, a zero-state/first-run section and provisioning matrix, numbered findings,
-    a docs/design cross-check, and a test-reality assessment.</p>
+/gauntletgate all            # the full stage-gate
+/gauntletgate lite | walkthrough | full | &lt;any combination&gt;</pre>
 </div></section>
 
 <section><div class="wrap">
   <h2>Honest about what it is</h2>
-  <div class="note">It's a <strong>skill</strong> — Markdown instructions an AI agent follows — not a binary or a CI job.
-    It's written for and verified against Claude Code and Codex; the method is agent-agnostic but assumes an agent that can
-    run Playwright and read your repo. It makes the first-run pass mandatory and gates the verdict on a verified attestation
-    — the strongest a skill can be — but it ultimately relies on the agent executing it faithfully. It audits; it doesn't
-    change your code unless you explicitly switch it to repair mode.</div>
+  <div class="note">A <strong>skill</strong> — Markdown instructions an AI agent follows — not a binary or CI job.
+    Written for and verified against Claude Code and Codex; the method assumes an agent that can run Playwright and
+    read your repo. It makes the first-run pass mandatory, gates the verdict on a verified attestation, and forbids a
+    partial run from claiming CLEAR TO ADVANCE — the strongest a skill can be — but it relies on the agent executing
+    it faithfully. It audits; it doesn't change your code unless you explicitly switch it to repair mode.
+    <code>full</code>/<code>all</code> fan out 5 subagents (billed).</div>
 </div></section>
 
 <footer><div class="wrap">
-  MIT licensed · <a href="https://github.com/scottconverse/FirstRunWalkthrough">github.com/scottconverse/FirstRunWalkthrough</a>
-  · <a href="https://github.com/scottconverse/FirstRunWalkthrough/blob/main/docs/MANUAL.md">Manual</a>
-  · <a href="https://github.com/scottconverse/FirstRunWalkthrough/blob/main/CHANGELOG.md">Changelog</a>
+  MIT · <a href="https://github.com/scottconverse/GauntletGate">github.com/scottconverse/GauntletGate</a>
+  · <a href="https://github.com/scottconverse/GauntletGate/blob/main/docs/MANUAL.md">Manual</a>
+  · <a href="https://github.com/scottconverse/GauntletGate/blob/main/CHANGELOG.md">Changelog</a>
 </div></footer>
 </body>
 </html>

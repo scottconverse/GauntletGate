@@ -1,97 +1,90 @@
-# FirstRunWalkthrough
+# GauntletGate
 
-**A walkthrough-audit skill that refuses to call a product "clean" when it's broken for new users.**
+**An adversarial stage-gate your product must survive to advance.**
 
 Version 0.1.0 · MIT licensed · a skill for [Claude Code](https://claude.com/claude-code) (and Codex-style agents)
 
-> **What it is, honestly.** This is a *skill* — a Markdown instruction set an AI
-> coding agent loads and follows. It is not a binary, a test runner, or a service.
-> It drives your running app with Playwright, reads your repo as the source of
-> truth, and produces an evidence-backed audit report. It works with any agent
-> that can run Playwright and read your code; it's written and verified against
-> Claude Code and Codex.
+> **What it is, honestly.** GauntletGate is a *skill* — a Markdown instruction set
+> an AI coding agent loads and follows. It is not a binary, a CI job, or a service.
+> One command, three lanes; the argument picks which run. It reads your repo as the
+> source of truth and drives your running app with Playwright. It works with any
+> agent that can run Playwright and read your code; it's written for Claude Code and
+> Codex.
 
 ---
 
-## The problem it solves
+## The idea
 
-A normal "walkthrough" or smoke test is run on the **developer's machine** — where
-the database is seeded, the model server is running, the license is activated, the
-config is filled in, and the app has been opened a hundred times. So it audits a
-product that is *already working*, and reports it clean.
+At the end of a stage, sprint, or before a release, you run the gauntlet. The
+product doesn't advance until it passes. The gate is **adversarial by default** — its
+job is to *block* advancement until the product is genuinely ready, not to wave it
+through.
 
-Then a real new user installs it, opens it, and hits a wall on the first screen:
-a disabled primary button, a "go install X yourself" instruction, a blank page, a
-silent failure. The single most important defect — *can a brand-new user actually
-get started?* — is the one a dev-box walkthrough is structurally blind to.
+It folds three escalating checks into one command, with a single shared standard for
+the first-run discipline, the environment attestation, and severity.
 
-This skill exists because that happened: a product was audited and reported
-**"near-clean (1 Minor)"** while a new user with no model server hit an immediate
-dead-end. The audit ran on a fully-provisioned dev box, and its "clean profile"
-isolation had silently failed — so it secretly read the real, working profile.
+## One command, three lanes
 
-## What it does differently
+`/gauntletgate <args>` — `args` is any subset of:
 
-FirstRunWalkthrough is a full interface-wiring audit — routes, forms, state,
-backend wiring, docs/design cross-check, test reality — **plus** a non-negotiable
-discipline that ordinary walkthroughs skip:
+| arg | lane | what it does | weight |
+|-----|------|--------------|--------|
+| `lite` | **Lite** | fast single-pass review of a change/slice (first-run-aware) | light, inline |
+| `walkthrough` | **Walkthrough** | first-run-truth + interface-wiring runtime audit | light–medium, inline |
+| `full` | **Full** | 5-role adversarial deep audit (eng / security / perf / tests / docs / QA) | **heavy, multi-agent, billed** |
+| `all` | all three | Lite → Walkthrough → Full, then one gate verdict | **heavy** |
 
-- **Constructs and *verifies* the true first-run state.** Fresh profile,
-  dependencies **absent**, empty data, first-run flags unset — and it *proves* the
-  app actually used the clean state instead of trusting an override that may have
-  silently failed.
-- **Walks the product with each external dependency ABSENT** — the new-user
-  reality where dead-ends live — not just with everything conveniently installed.
-- **Treats an already-provisioned dev box as disqualifying** for first-run
-  findings. If a clean state can't be verified, the run is marked **INVALID** for
-  first-run — it is *never* allowed to report "clean."
-- **Files a first-run dead-end on the core feature as a Blocker**, not a footnote.
+- **Bare `/gauntletgate` = `all`** — the product is the full gauntlet.
+- **Any combination:** `/gauntletgate lite walkthrough`, `/gauntletgate walkthrough full`, etc.
+- The lanes compose: **Full consumes the Walkthrough report** instead of re-walking the UI, so they compound rather than overlap.
 
-The result: the exact miss above cannot happen again. A product that strands a new
-user can no longer pass as near-clean.
+## The verdict
 
-## What you get
+- **CLEAR TO ADVANCE** — only when `all` ran (walkthrough **and** full), at **0 Blocker
+  / 0 Critical**, with **first-run coverage VALID and a new user able to reach the core
+  feature.**
+- **PARTIAL CHECK** — any run missing a required lane (e.g. `lite`, or `walkthrough`
+  alone). Explicitly *not* an advancement gate — a cheap run can't masquerade as the
+  full gate.
+- **DO NOT ADVANCE** — any Blocker/Critical, or invalid first-run coverage on a product
+  with a first-run surface, plus the blocking punch list to clear before a re-run.
 
-An evidence-backed report (template included) covering:
+## Why it exists — the first-run spine
 
-- A **verdict** that states, up front, whether a brand-new user can reach the core feature.
-- A verified **environment-provisioning attestation** (what was clean/absent, and *how that was confirmed*).
-- A **zero-state / first-run** section and a **provisioning matrix** (first-run × dependency-absent × empty-data × offline).
-- Numbered, evidence-backed findings (route, expected, actual, evidence, cause, fix, test).
-- Docs/design cross-check, test-coverage reality, and an optional wiring map.
+The most expensive defect is the one a developer never sees, because the dev box is
+already set up. GauntletGate was built after a real miss: a product was reported
+**"near-clean (1 Minor)"** while a brand-new user with no model server hit an immediate
+dead-end — and the check had run on a provisioned dev box whose "clean profile"
+isolation had silently failed. So every lane that touches a first-run / onboarding /
+dependency / empty-data surface must **construct and verify the true first-run state**,
+walk the product with dependencies **absent**, treat a provisioned dev box as
+**disqualifying**, and file a first-run dead-end on the core feature as a **Blocker**.
+That standard lives once, in `skill/gauntletgate/references/shared-backbone.md`, and
+all three lanes obey it.
 
 ## Install
 
-The skill is a folder you drop into your agent's skills directory.
-
-**Claude Code (user-level, available in every project):**
 ```bash
-python install.py            # copies skill/walkthrough/ into ~/.claude/skills/
-```
-Or do it by hand:
-```bash
-cp -r skill/walkthrough ~/.claude/skills/walkthrough
-```
+python install.py            # -> ~/.claude/skills/gauntletgate/  (Claude Code, every project)
+# or project-only:
+python install.py --project /path/to/your/project
 
-**Project-level (just this repo):**
-```bash
-python install.py --project /path/to/your/project   # → <project>/.claude/skills/walkthrough/
+# then, in a fresh session:
+/gauntletgate all            # full stage-gate
+/gauntletgate lite | walkthrough | full | <any combination>
 ```
-
-Then start a session and run `/walkthrough` (or ask the agent for "a full UI
-walkthrough / interface-wiring audit"). See the [manual](docs/MANUAL.md) for the
-full operating protocol.
 
 ## Requirements
 
-- An AI coding agent that loads skills and can run **Playwright** and read your repo (Claude Code or Codex).
-- Your app must be runnable locally (the skill derives setup from your repo; if it can't run, it falls back to static analysis and says so).
+- An agent that loads skills and can run **Playwright** and read your repo (Claude Code or Codex).
+- A locally runnable app (or the gate falls back to static analysis and says so).
+- For `full`/`all`: a **multi-agent budget** — Full fans out 5 role subagents (billed).
 
 ## Docs
 
-- **[User manual](docs/MANUAL.md)** — operating protocol, the first-run discipline, the architecture, and the report sections.
-- **[Architecture diagram](docs/architecture.svg)** — the audit pipeline and its gates.
-- **[Landing page](https://scottconverse.github.io/FirstRunWalkthrough/)** — the short version.
+- **[Manual](docs/MANUAL.md)** — lanes, the first-run discipline, the architecture, the verdict, honest limits.
+- **[Architecture diagram](docs/architecture.svg)** — the gate, the three lanes, and the verdict logic.
+- **[Landing page](https://scottconverse.github.io/GauntletGate/)**
 - **[CHANGELOG](CHANGELOG.md)**
 
 ## License

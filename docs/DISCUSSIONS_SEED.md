@@ -2,80 +2,79 @@
 
 Ready-to-post seed threads for the repo's Discussions tab. Create the categories
 (Announcements, Q&A, Show and tell, Ideas) under *Settings → Features →
-Discussions*, then paste each post into its category. (The maintainer can also
-post these via `gh api graphql`.)
+Discussions*, then paste each post into its category.
 
 ---
 
-## 📣 Announcements — "FirstRunWalkthrough 0.1.0: a walkthrough audit that can't be fooled by a dev box"
+## 📣 Announcements — "GauntletGate 0.1.0: an adversarial stage-gate your product must survive to advance"
 
-Most "walkthroughs" run on the machine the product was built on — database seeded,
-model server running, license activated, settings filled in, first-run flags long
-cleared. So they audit a product that *already works*, and report it clean. The
-single most important question — *can a brand-new user actually get started?* — is
-the one a dev-box walkthrough is structurally blind to.
+Most quality checks run on the machine the product was built on — database seeded,
+dependencies running, settings filled in. So they audit a product that already
+works, and wave it through. GauntletGate is built to *block* advancement until the
+product is genuinely ready — including for a brand-new user.
 
-**FirstRunWalkthrough 0.1.0** is a skill (for Claude Code / Codex) that drives your
-app with Playwright and reads your repo as the source of truth — and then does the
-part everyone skips: it **constructs and verifies the real first-run state** (fresh
-profile, empty data, dependencies *absent*), proves the app actually used that
-clean state rather than a silently-ignored override, and walks the product with its
-dependencies removed. A first-run dead-end on the core feature is a **Blocker**, and
-an already-provisioned environment is **disqualified** from reporting "clean."
+**GauntletGate 0.1.0** is one command with three lanes (a skill for Claude Code /
+Codex):
 
-It was extracted from a real miss: a product reported "near-clean (1 Minor)" while a
-new user hit an immediate dead-end, because the audit ran on a provisioned dev box
-and its isolation had silently failed.
+- `/gauntletgate lite` — a fast single-pass on a change/slice (first-run-aware).
+- `/gauntletgate walkthrough` — a first-run-truth + interface-wiring runtime audit
+  that *verifies* the real first-run state and walks the product with dependencies
+  absent.
+- `/gauntletgate full` — a 5-role adversarial deep audit that consumes the
+  walkthrough report instead of re-walking the UI.
+- `/gauntletgate all` (the default) — all three, then one verdict.
+
+**Only the full run can say CLEAR TO ADVANCE** (0 Blocker / 0 Critical, first-run
+valid and reachable). Any partial run is labeled a PARTIAL CHECK — a cheap run can't
+masquerade as the gate. It was born from a real miss: a product reported "near-clean"
+while a new user hit an instant dead-end, because the check ran on a provisioned dev
+box whose isolation had silently failed.
 
 - Install + docs: see the README and the [manual](MANUAL.md).
 - It's a skill, not a binary — honest about that in the README.
 
 ---
 
-## 🙋 Q&A — "Does it work for products without an external dependency?"
+## 🙋 Q&A — "Can a `lite` run clear a stage? / no external dependency?"
 
-Yes. The dependency-absent part of the matrix simply doesn't apply — but the
-first-run, empty-data, and onboarding states still do, and those exist in almost
-every product. The verdict still answers "can a brand-new user reach the core
-feature?"
-
-Other common questions worth seeding:
-
-- **Will it change my code?** No, not in audit mode. It creates only temporary audit
-  artifacts and keeps them away from your source. Repair mode is opt-in.
-- **Which agents does it work with?** Written for and verified against Claude Code
-  and Codex. The method is agent-agnostic but assumes Playwright + repo access.
-- **What if my app can't run locally?** It documents the blocker and continues as
-  static analysis — and says so, rather than pretending it walked the UI.
+- **Can `lite` greenlight a stage?** No. Only `all` can be CLEAR TO ADVANCE;
+  everything else is a PARTIAL CHECK by design — so a quick check can't be mistaken
+  for the full gate.
+- **My product has no external dependency.** The dependency-absent axis just doesn't
+  apply; first-run, empty-data, and onboarding states still do.
+- **Will it change my code?** No, not in audit mode. Repair mode is opt-in.
+- **What does `full` cost?** It fans out 5 role subagents (billed, multi-agent
+  opt-in). `lite` and `walkthrough` are light and run inline.
+- **Which agents?** Written for and verified against Claude Code and Codex; assumes
+  Playwright + repo access.
 
 ---
 
-## 🙌 Show and tell — "What did your first-run pass catch?"
+## 🙌 Show and tell — "What did the gate block?"
 
-Post the dead-end your dev box was hiding. The interesting ones:
+Post the thing that *almost* advanced. The interesting ones:
 
-- A core action disabled with no in-product path to enable it.
-- A "go install X yourself" step with no help, no link, no fallback.
-- An onboarding flow that assumes a dependency is already running.
-- A "clean" run that turned out to be reading a provisioned profile (and how you
-  caught the isolation failure).
+- A first-run dead-end a dev box was hiding (disabled core action, "go install X
+  yourself," blank screen).
+- A "clean" run that turned out to be reading a provisioned profile — and how the
+  attestation caught it.
+- A cross-role finding the full lane surfaced (a security bug with no test and no
+  doc).
 
-Screenshots of the verdict line *"Dead-ends a new user ❌"* especially welcome.
+Screenshots of a `⛔ DO NOT ADVANCE` verdict especially welcome.
 
 ---
 
-## 💡 Ideas — "What would make first-run auditing stronger?"
+## 💡 Ideas — "What would make the gate stronger?"
 
-Some directions on the table:
+On the table:
 
-- A **mechanical gate**: make it impossible to emit a "pass" without a verified
-  environment-provisioning attestation file present (today the skill is strong
-  guidance, but not a hard lock).
-- **Recorded first-run traces** as shareable artifacts (the new-user journey as a
-  replayable Playwright trace).
-- **Per-platform isolation recipes** (clean profile / temp HOME / container / fresh
-  DB) contributed for common stacks.
-- A small **library of dependency-absent probes** (model server, DB, license,
-  network) the skill can reuse.
+- A **mechanical gate**: make it impossible to emit CLEAR TO ADVANCE without a
+  verified environment attestation file present (today it's strong guidance, not a
+  hard lock).
+- **CI integration**: run `lite` on every PR, `all` at stage boundaries, and post the
+  verdict as a status check.
+- **Per-stack isolation + dependency-absent recipes** contributed by the community.
+- **A persisted gate ledger** (which stages a build cleared, when, with what verdict).
 
-What would you want? File an Idea.
+File an Idea with what you'd want.
