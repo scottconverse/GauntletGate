@@ -6,9 +6,11 @@ Usage:
   python install.py                      # -> ~/.claude/skills/gauntletgate/   (user-level)
   python install.py --project PATH       # -> PATH/.claude/skills/gauntletgate/  (one project)
   python install.py --dest PATH          # -> PATH/gauntletgate/  (any skills dir)
+  python install.py --backup             # save the prior install to <dest>.bak-<ts> first
 
-Idempotent: re-running overwrites the installed copy with this repo's version.
-To uninstall, delete the installed `gauntletgate/` folder.
+Re-running REPLACES the installed copy with this repo's version (it does not merge).
+If you've customized the installed files, pass --backup to preserve the prior copy
+next to the new one. To uninstall, delete the installed `gauntletgate/` folder.
 
 After installing, start a fresh session and run:
   /gauntletgate all          (the full stage-gate; also the bare-command default)
@@ -21,6 +23,7 @@ import argparse
 import pathlib
 import shutil
 import sys
+import time
 
 SRC = pathlib.Path(__file__).resolve().parent / "skill" / "gauntletgate"
 
@@ -29,6 +32,11 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="Install the GauntletGate skill.")
     ap.add_argument("--project", help="install into <PROJECT>/.claude/skills/gauntletgate/")
     ap.add_argument("--dest", help="install into <DEST>/gauntletgate/ (any skills dir)")
+    ap.add_argument(
+        "--backup",
+        action="store_true",
+        help="if a prior install exists, move it to <dest>.bak-<timestamp> instead of deleting it",
+    )
     args = ap.parse_args(argv[1:])
 
     if not (SRC / "SKILL.md").is_file():
@@ -48,7 +56,12 @@ def main(argv: list[str]) -> int:
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists():
-        shutil.rmtree(dest)
+        if args.backup:
+            backup = dest.with_name(f"{dest.name}.bak-{int(time.time())}")
+            shutil.move(str(dest), str(backup))
+            print(f"backed up prior install -> {backup}")
+        else:
+            shutil.rmtree(dest)
     shutil.copytree(SRC, dest)
 
     print(f"installed GauntletGate skill -> {dest}")

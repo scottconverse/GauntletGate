@@ -1,6 +1,6 @@
 # GauntletGate — Manual
 
-Version 0.1.0
+Version 0.2.0
 
 GauntletGate is an adversarial **stage-gate**: a product runs the gauntlet to earn
 the right to advance to the next stage, sprint, or release. This manual covers what
@@ -22,6 +22,13 @@ only work on the machine it was built on?*
 
 It is **adversarial by default**: its job is to block advancement until the product
 is genuinely ready, not to find reasons to wave it through.
+
+> **Read this up front (full detail in §7):** GauntletGate is *guidance an agent
+> follows*, not a mechanical lock. It makes the first-run pass mandatory, gates the
+> verdict on a verified attestation that must link to on-disk artifacts, and forbids a
+> partial run from claiming CLEAR TO ADVANCE — but it ultimately relies on the agent
+> executing it faithfully. A gap is never a pass. (Mechanical enforcement is on the
+> roadmap.)
 
 ---
 
@@ -74,9 +81,9 @@ verdict.
 
 (Full rules: `skill/gauntletgate/references/gate-verdict.md`.)
 
-- **CLEAR TO ADVANCE** — only when `all` ran (Walkthrough **and** Full), at **0
-  Blocker / 0 Critical**, with **first-run coverage VALID and the core feature
-  reachable by a new user.** Majors/Minors/Nits ride along on the punch list /
+- **CLEAR TO ADVANCE** — only when the **Walkthrough and Full lanes both ran** (i.e.
+  `all`, or explicitly `walkthrough full`), at **0 Blocker / 0 Critical**, with
+  **first-run coverage VALID and the core feature reachable by a new user.** Majors/Minors/Nits ride along on the punch list /
   watchlist; they don't block advancement (unless your project sets a stricter bar,
   e.g. 0/0/0/0/0, which the gate will honor if you state it).
 - **PARTIAL CHECK** — any run missing a required lane (`lite`, `walkthrough` alone,
@@ -134,6 +141,14 @@ everything else is a PARTIAL CHECK by design.
 
 **No external dependency in my product?** The dependency-absent axis just doesn't
 apply; first-run, empty-data, and onboarding states still do.
+
+**My product has no UI at all (a library / API / CLI)?** Then "can a new user reach
+the core feature?" is **N/A** — the attestation records first-run coverage as N/A
+with the reason, and the verdict's first-run line reads N/A instead of ✅/❌. The
+adjacent dimensions still apply where they fit: first use from a genuinely clean
+install (fresh venv / node_modules / a machine without the global tool), behavior
+when a **dependency is absent**, and empty/initial-state paths. N/A is a reasoned
+call, never a way to skip a first-run surface that does exist.
 
 **Will it change my code?** No, not in audit mode.
 
