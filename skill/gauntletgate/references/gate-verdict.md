@@ -51,8 +51,10 @@ coverage is **INVALID** while a UI/onboarding/dependency surface is in scope, em
    VERIFIED (with first-run coverage VALID/INVALID).
 3. **Severity roll-up** — Blocker / Critical / Major / Minor / Nit across all lanes
    that ran.
-4. **The environment-provisioning attestation** (from the shared backbone) — or an
-   explicit statement that it could not be produced and why.
+4. **The environment-provisioning attestation** (from the shared backbone), **with
+   its linked on-disk evidence artifacts** — or an explicit statement that it could
+   not be produced and why. An attestation with no linked artifact is UNVERIFIED →
+   first-run coverage INVALID → the run cannot be CLEAR TO ADVANCE.
 5. **The blocking punch list** (what must clear to advance) and the **watchlist**
    (what to fix next).
 

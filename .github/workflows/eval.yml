@@ -1,0 +1,35 @@
+name: gauntletgate-eval
+
+# GauntletGate gates itself. These checks are the repo's exit gate — the golden
+# eval proves the first-run dead-end is real and detected, and the lint proves the
+# skill's file contract is intact. Both must pass on every push and PR.
+
+on:
+  push:
+    branches: [main, "v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Skill structure lint
+        run: python eval/lint_skill.py
+      - name: Golden eval (first-run dead-end -> DO NOT ADVANCE)
+        run: python eval/run_eval.py
+      - name: Installer smoke test
+        run: |
+          python install.py --dest "$RUNNER_TEMP/skills"
+          test -f "$RUNNER_TEMP/skills/gauntletgate/lanes/full.md"
+          test -f "$RUNNER_TEMP/skills/gauntletgate/references/shared-backbone.md"
+      - name: Upload eval artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gauntletgate-eval-artifacts
+          path: eval/artifacts/

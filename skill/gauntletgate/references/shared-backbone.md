@@ -42,6 +42,20 @@ empty-data surface:
    action, a "go install X yourself" with no in-product help, a blank screen, or a
    silent failure — not a footnote.
 
+**How to construct & verify the clean state per stack** (web/SaaS, Node, Python,
+Electron, Docker, headless API): see `references/isolation-recipes.md`. The universal
+pattern: redirect where the app stores state → launch → assert it wrote *there*, not
+to the real home → capture that path as the artifact.
+
+**No first-run UI?** For a pure library, API, or CLI with no user-facing first-run
+surface, "can a new user reach the core feature?" is **N/A** — state that explicitly
+in the attestation (first-run coverage: **N/A**, with the reason) and the verdict's
+first-run line reads N/A, not ✅/❌. The other dimensions still apply where they make
+sense: a library's "first use from a clean install" (fresh venv / node_modules / a
+machine without the global tool), an API's behavior when its **dependency is absent**,
+and empty-data/initial-state paths. N/A is a reasoned classification, never a way to
+skip a first-run surface that actually exists.
+
 ---
 
 ## 2. The environment-provisioning attestation (gates the first-run verdict)
@@ -59,6 +73,17 @@ If it can't be filled, first-run coverage is INVALID and the report says so.
 
 **Isolation verified?** YES (app provably used the clean state) / NO (could not confirm)
 **→ First-run coverage:** VALID / INVALID (and why)
+
+**Evidence artifact (required — this is what separates a verdict from a claim).**
+Every "verified" cell must point to an **on-disk artifact** saved alongside the
+report: a captured page/DOM, a Playwright trace, a log, or the captured path the app
+actually wrote to. List the artifact files (e.g. `artifacts/first-run-absent.html`,
+`artifacts/isolation-path.txt`). **An attestation with no linked artifact is treated
+as UNVERIFIED → first-run coverage INVALID.** A self-attested table with nothing
+observable behind it does not count — the whole point of the gate is that the
+verification is *checkable by someone other than the agent that wrote it.* (Roadmap:
+a future release makes this mechanical — no CLEAR TO ADVANCE emitted unless the
+artifact files exist on disk.)
 
 ---
 

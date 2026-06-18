@@ -45,6 +45,35 @@ when the Walkthrough lane ran, **consume its report** instead of re-walking the 
    cheap/urgent Majors), and the next-stage watchlist (structural Majors,
    architectural debt, scaling).
 
+## Degraded mode (when multi-agent fan-out isn't available)
+
+Do not silently abandon the lane and do not let the environment quietly change the
+verdict. If the running context can't fan out subagents:
+
+1. **Run the five roles SEQUENTIALLY in-context**, one labeled pass each, applying the
+   exact same role focus, shared backbone, and severity bar.
+2. **Label the report `Full: DEGRADED (sequential, not parallel)`** so the reader
+   knows the roles weren't independent. The severity bar and verdict rules are
+   unchanged — degraded mode is slower and less independent, never more lenient.
+3. If you can't run the roles even sequentially (no budget, can't proceed), **mark
+   Full as a coverage gap** in the report — a gap is not a pass, and a gap means the
+   run can't be CLEAR TO ADVANCE on Full's behalf.
+
+## Deep-dive schema (what a complete role report must contain)
+
+Each deep-dive (`01-engineering` … `05-qa`) must contain, or it's an incomplete
+coverage gap (not a clean pass):
+
+- **Role + severity counts** (Blocker / Critical / Major / Minor / Nit).
+- **Findings**, each with: id, severity, category, **evidence** (file:line or numbered
+  repro + observed vs. expected), why-it-matters, **blast radius** (required for
+  Blocker/Critical/Major), and a concrete fix path.
+- **What's working** — specific and credited (not "the app launches"; that's
+  content-free and doesn't satisfy the section).
+
+An empty, generic, or obviously truncated deep-dive is treated by the orchestrator as
+a coverage gap for that role — surface it, don't average it away.
+
 ## Posture
 Adversarial by default — the gate's job is to block advancement, not wave it
 through. But stay honest and balanced: every role credits what works (it's signal,

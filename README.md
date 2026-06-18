@@ -2,7 +2,7 @@
 
 **An adversarial stage-gate your product must survive to advance.**
 
-Version 0.1.0 · MIT licensed · a skill for [Claude Code](https://claude.com/claude-code) (and Codex-style agents)
+Version 0.2.0 · MIT licensed · a skill for [Claude Code](https://claude.com/claude-code) (and Codex-style agents)
 
 > **What it is, honestly.** GauntletGate is a *skill* — a Markdown instruction set
 > an AI coding agent loads and follows. It is not a binary, a CI job, or a service.
@@ -40,9 +40,9 @@ the first-run discipline, the environment attestation, and severity.
 
 ## The verdict
 
-- **CLEAR TO ADVANCE** — only when `all` ran (walkthrough **and** full), at **0 Blocker
-  / 0 Critical**, with **first-run coverage VALID and a new user able to reach the core
-  feature.**
+- **CLEAR TO ADVANCE** — only when the **walkthrough and full lanes both ran** (i.e.
+  `all`, or explicitly `walkthrough full`), at **0 Blocker / 0 Critical**, with
+  **first-run coverage VALID and a new user able to reach the core feature.**
 - **PARTIAL CHECK** — any run missing a required lane (e.g. `lite`, or `walkthrough`
   alone). Explicitly *not* an advancement gate — a cheap run can't masquerade as the
   full gate.
@@ -86,6 +86,31 @@ python install.py --project /path/to/your/project
 - **[Architecture diagram](docs/architecture.svg)** — the gate, the three lanes, and the verdict logic.
 - **[Landing page](https://scottconverse.github.io/GauntletGate/)**
 - **[CHANGELOG](CHANGELOG.md)**
+
+## Roadmap
+
+GauntletGate is honest that it's currently **strong guidance, not a mechanical lock**
+(see the manual's limits). The named next steps:
+
+- **Mechanical enforcement of the attestation.** A companion check that **refuses to
+  emit CLEAR TO ADVANCE unless the verified evidence artifacts exist on disk** — the
+  same way a hard gate refuses an action without proof. This turns the first-run
+  guarantee from a convention into something checkable by someone other than the agent
+  that wrote it.
+- **CI integration.** Run `lite` on every PR and `all` at stage boundaries, surfacing
+  the verdict as a status check. (This repo already dogfoods: see `eval/` and
+  `.github/workflows/eval.yml` — GauntletGate gates itself.)
+
+## Provenance
+
+The **Full** lane's five-role adversarial method isn't invented here — it's distilled
+from a multi-role audit methodology (Principal Engineer · UI/UX · Technical Writer ·
+Test · QA) that has been run as a stage-close audit on real projects. The
+**Walkthrough** lane's first-run discipline likewise comes from a real production miss
+(see *Why it exists*). GauntletGate's contribution is folding these, plus a fast Lite
+pass, into one argument-dispatched gate with a single shared standard and an honest
+verdict. Mentioned here as a maturity signal, not a footnote: the methods are battle-
+used, not theoretical.
 
 ## License
 
