@@ -9,11 +9,14 @@ An adversarial **stage-gate**. A product runs the gauntlet to earn the right to
 advance to the next stage, sprint, or release. GauntletGate's job is to *block*
 advancement until the product is genuinely ready — not to rubber-stamp it.
 
-It is one command with three lanes. The argument selects which lane(s) run.
+It is one gate with three lanes. The argument selects which lane(s) run.
 
 ## Invocation
 
-`/gauntletgate <args>` — `args` is a space-separated subset of:
+Codex Desktop may invoke this skill by name or natural-language request, such as
+asking for "GauntletGate lite" or "GauntletGate walkthrough full". CoWork/Claude-style
+agents may expose it as `/gauntletgate <args>`. In either format, `args` is a
+space-separated subset of:
 
 | arg | lane | what it does | weight |
 |-----|------|--------------|--------|
@@ -22,8 +25,8 @@ It is one command with three lanes. The argument selects which lane(s) run.
 | `full` | Full | 5-role adversarial deep audit (eng/security/perf/tests/docs/QA) | **heavy, multi-agent, billed** |
 | `all` | all three | Lite → Walkthrough → Full, then one gate verdict | **heavy** |
 
-- **Bare `/gauntletgate` (no arg) = `all`.** The product *is* the full gauntlet.
-- **Any combination** is allowed: `/gauntletgate lite walkthrough`, `/gauntletgate walkthrough full`, etc. Run exactly the named lanes, in canonical order (lite → walkthrough → full).
+- **Bare `gauntletgate` (no arg) = `all`.** The product *is* the full gauntlet.
+- **Any combination** is allowed: `gauntletgate lite walkthrough`, `gauntletgate walkthrough full`, etc. Run exactly the named lanes, in canonical order (lite → walkthrough → full).
 - Unrecognized args: print this table and stop.
 
 ## Before you run — read these (always)

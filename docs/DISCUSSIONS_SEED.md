@@ -13,16 +13,16 @@ dependencies running, settings filled in. So they audit a product that already
 works, and wave it through. GauntletGate is built to *block* advancement until the
 product is genuinely ready — including for a brand-new user.
 
-**GauntletGate 0.1.0** is one command with three lanes (a skill for Claude Code /
-Codex):
+**GauntletGate 0.1.0** is one gate with three lanes (a skill for Codex Desktop and
+CoWork/Claude-style agents):
 
-- `/gauntletgate lite` — a fast single-pass on a change/slice (first-run-aware).
-- `/gauntletgate walkthrough` — a first-run-truth + interface-wiring runtime audit
+- `gauntletgate lite` — a fast single-pass on a change/slice (first-run-aware).
+- `gauntletgate walkthrough` — a first-run-truth + interface-wiring runtime audit
   that *verifies* the real first-run state and walks the product with dependencies
   absent.
-- `/gauntletgate full` — a 5-role adversarial deep audit that consumes the
+- `gauntletgate full` — a 5-role adversarial deep audit that consumes the
   walkthrough report instead of re-walking the UI.
-- `/gauntletgate all` (the default) — all three, then one verdict.
+- `gauntletgate all` (the default) — all three, then one verdict.
 
 **Only the full run can say CLEAR TO ADVANCE** (0 Blocker / 0 Critical, first-run
 valid and reachable). Any partial run is labeled a PARTIAL CHECK — a cheap run can't
@@ -45,8 +45,8 @@ box whose isolation had silently failed.
 - **Will it change my code?** No, not in audit mode. Repair mode is opt-in.
 - **What does `full` cost?** It fans out 5 role subagents (billed, multi-agent
   opt-in). `lite` and `walkthrough` are light and run inline.
-- **Which agents?** Written for and verified against Claude Code and Codex; assumes
-  Playwright + repo access.
+- **Which agents?** Written for and verified against Codex Desktop and
+  CoWork/Claude-style agents; assumes Playwright + repo access.
 
 ---
 

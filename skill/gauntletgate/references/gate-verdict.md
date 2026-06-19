@@ -13,7 +13,7 @@ masquerade as the full gate.
 
 Emit **CLEAR TO ADVANCE** only when **all** of the following hold:
 
-- Both the **walkthrough** and **full** lanes ran (this is what `/gauntletgate all`
+- Both the **walkthrough** and **full** lanes ran (this is what `gauntletgate all`
   does; `lite` is a feeder, not part of the advancement bar).
 - Severity is **0 Blocker / 0 Critical** across every lane.
 - **First-run coverage is VALID** (the environment attestation is filled with
@@ -30,7 +30,7 @@ Any run that does **not** include both walkthrough and full — e.g. `lite`,
 verdict, never CLEAR TO ADVANCE. The report must say, in the first line:
 
 > ⚠️ PARTIAL CHECK — lanes run: `<list>`. This is **not** an advancement gate.
-> Run `/gauntletgate all` for a clear-to-advance decision.
+> Run `gauntletgate all` for a clear-to-advance decision.
 
 A PARTIAL CHECK still reports its findings and its own pass/fail *within the lanes
 it ran* — it just cannot greenlight advancement.

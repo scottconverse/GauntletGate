@@ -9,7 +9,7 @@
 ## Verdict (read first)
 
 > **<CLEAR TO ADVANCE | PARTIAL CHECK | DO NOT ADVANCE>**
-> <If PARTIAL CHECK: "lanes run: X — this is NOT an advancement gate; run `/gauntletgate all` for a clear-to-advance decision.">
+> <If PARTIAL CHECK: "lanes run: X — this is NOT an advancement gate; run `gauntletgate all` for a clear-to-advance decision.">
 
 - **First-run:** reaches core feature ✅ / dead-ends a new user ❌ / NOT VERIFIED — (first-run coverage: VALID / INVALID)
 - **Severity roll-up (lanes run):** Blocker N · Critical N · Major N · Minor N · Nit N

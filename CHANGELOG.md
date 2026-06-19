@@ -4,6 +4,17 @@ All notable changes to GauntletGate are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/); versioning is
 [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- **Installer app selection:** `install.py` now supports Codex Desktop and
+  CoWork/Claude-style installs via `--app codex`, `--app cowork`, or auto-detection.
+  If auto-detection is ambiguous in an interactive terminal, it asks the user to
+  choose Codex or CoWork.
+- **Codex-facing docs:** README, manual, landing page, and skill invocation text now
+  document Codex Desktop's natural-language skill use while preserving
+  CoWork/Claude-style slash-command compatibility.
+
 ## [0.2.0] — 2026-06-17
 
 Audit-response sprint (team technical review of v0.1.0). The exit gate for this
