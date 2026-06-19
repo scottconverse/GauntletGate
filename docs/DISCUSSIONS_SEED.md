@@ -6,14 +6,14 @@ Discussions*, then paste each post into its category.
 
 ---
 
-## 📣 Announcements — "GauntletGate 0.1.0: an adversarial stage-gate your product must survive to advance"
+## 📣 Announcements — "GauntletGate 0.3.0: Codex-aware install support for the adversarial stage-gate"
 
 Most quality checks run on the machine the product was built on — database seeded,
 dependencies running, settings filled in. So they audit a product that already
 works, and wave it through. GauntletGate is built to *block* advancement until the
 product is genuinely ready — including for a brand-new user.
 
-**GauntletGate 0.1.0** is one gate with three lanes (a skill for Codex Desktop and
+**GauntletGate 0.3.0** is one gate with three lanes (a skill for Codex Desktop and
 CoWork/Claude-style agents):
 
 - `gauntletgate lite` — a fast single-pass on a change/slice (first-run-aware).
@@ -32,6 +32,9 @@ box whose isolation had silently failed.
 
 - Install + docs: see the README and the [manual](MANUAL.md).
 - It's a skill, not a binary — honest about that in the README.
+- New in 0.3.0: the installer understands Codex Desktop and CoWork/Claude-style
+  skill locations, with an interactive Codex-or-CoWork choice when auto-detection is
+  ambiguous.
 
 ---
 
