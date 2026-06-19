@@ -2,14 +2,14 @@
 
 **An adversarial stage-gate your product must survive to advance.**
 
-Version 0.2.0 · MIT licensed · a skill for [Claude Code](https://claude.com/claude-code) (and Codex-style agents)
+Version 0.3.0 · MIT licensed · a skill for Codex Desktop and CoWork/Claude-style agents
 
 > **What it is, honestly.** GauntletGate is a *skill* — a Markdown instruction set
 > an AI coding agent loads and follows. It is not a binary, a CI job, or a service.
 > One command, three lanes; the argument picks which run. It reads your repo as the
 > source of truth and drives your running app with Playwright. It works with any
-> agent that can run Playwright and read your code; it's written for Claude Code and
-> Codex.
+> agent that can run Playwright and read your code; it's written for Codex Desktop
+> and CoWork/Claude-style agents.
 
 ---
 
@@ -20,12 +20,12 @@ product doesn't advance until it passes. The gate is **adversarial by default** 
 job is to *block* advancement until the product is genuinely ready, not to wave it
 through.
 
-It folds three escalating checks into one command, with a single shared standard for
+It folds three escalating checks into one gate, with a single shared standard for
 the first-run discipline, the environment attestation, and severity.
 
-## One command, three lanes
+## One gate, three lanes
 
-`/gauntletgate <args>` — `args` is any subset of:
+Ask your agent to run `gauntletgate <args>`; `args` is any subset of:
 
 | arg | lane | what it does | weight |
 |-----|------|--------------|--------|
@@ -34,8 +34,8 @@ the first-run discipline, the environment attestation, and severity.
 | `full` | **Full** | 5-role adversarial deep audit (eng / security / perf / tests / docs / QA) | **heavy, multi-agent, billed** |
 | `all` | all three | Lite → Walkthrough → Full, then one gate verdict | **heavy** |
 
-- **Bare `/gauntletgate` = `all`** — the product is the full gauntlet.
-- **Any combination:** `/gauntletgate lite walkthrough`, `/gauntletgate walkthrough full`, etc.
+- **Bare `gauntletgate` = `all`** — the product is the full gauntlet.
+- **Any combination:** `gauntletgate lite walkthrough`, `gauntletgate walkthrough full`, etc.
 - The lanes compose: **Full consumes the Walkthrough report** instead of re-walking the UI, so they compound rather than overlap.
 
 ## The verdict
@@ -65,18 +65,23 @@ all three lanes obey it.
 ## Install
 
 ```bash
-python install.py            # -> ~/.claude/skills/gauntletgate/  (Claude Code, every project)
-# or project-only:
-python install.py --project /path/to/your/project
-
-# then, in a fresh session:
-/gauntletgate all            # full stage-gate
-/gauntletgate lite | walkthrough | full | <any combination>
+python install.py                # auto-detect Codex or CoWork/Claude
+python install.py --app codex    # install to ~/.codex/skills/gauntletgate/
+python install.py --app cowork   # install to ~/.claude/skills/gauntletgate/
+python install.py --project PATH # project-local install using the selected app format
 ```
+
+If auto-detection is ambiguous in an interactive terminal, the installer asks you to
+choose **Codex** or **CoWork**. In noninteractive contexts it preserves the historical
+CoWork/Claude-style default unless `--app` or `--dest` is supplied.
+
+After installing, start a fresh agent session. In Codex Desktop, ask Codex to use
+GauntletGate by name or by saying which lane to run. In CoWork/Claude-style agents,
+use the slash-command form shown in the installed skill.
 
 ## Requirements
 
-- An agent that loads skills and can run **Playwright** and read your repo (Claude Code or Codex).
+- An agent that loads skills and can run **Playwright** and read your repo (Codex Desktop or CoWork/Claude-style agents).
 - A locally runnable app (or the gate falls back to static analysis and says so).
 - For `full`/`all`: a **multi-agent budget** — Full fans out 5 role subagents (billed).
 

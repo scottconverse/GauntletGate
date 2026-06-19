@@ -1,6 +1,6 @@
 # GauntletGate — Manual
 
-Version 0.2.0
+Version 0.3.0
 
 GauntletGate is an adversarial **stage-gate**: a product runs the gauntlet to earn
 the right to advance to the next stage, sprint, or release. This manual covers what
@@ -13,8 +13,8 @@ discipline that is its spine, and its honest limits.
 
 A **skill** — Markdown instructions an AI coding agent loads and follows. Not a
 binary, not CI, not a service. It reads your repo as the source of truth and drives
-your running app with Playwright. One command, three lanes; the argument selects
-which run.
+your running app with Playwright. One gate, three lanes; the argument selects which
+run.
 
 **Use it** at the end of a stage/sprint or before release, to get an honest
 go/no-go: *is this ready to advance — including for a brand-new user — or does it
@@ -35,19 +35,28 @@ is genuinely ready, not to find reasons to wave it through.
 ## 2. Install & run
 
 ```bash
-python install.py                      # -> ~/.claude/skills/gauntletgate/ (every project)
-python install.py --project PATH       # -> PATH/.claude/skills/gauntletgate/ (one repo)
+python install.py                      # auto-detect Codex or CoWork/Claude
+python install.py --app codex          # -> ~/.codex/skills/gauntletgate/
+python install.py --app cowork         # -> ~/.claude/skills/gauntletgate/
+python install.py --project PATH       # -> PATH/.<app>/skills/gauntletgate/ (one repo)
 ```
 
-Then, in a fresh session:
+If auto-detection is ambiguous in an interactive terminal, the installer asks you to
+choose **Codex** or **CoWork**. In noninteractive contexts it preserves the historical
+CoWork/Claude-style default unless `--app` or `--dest` is supplied.
+
+Then start a fresh agent session. In Codex Desktop, ask Codex to use GauntletGate by
+name or ask for a specific lane:
 
 ```
-/gauntletgate all          # the full stage-gate (also the bare-command default)
-/gauntletgate lite
-/gauntletgate walkthrough
-/gauntletgate full
-/gauntletgate lite walkthrough     # any combination, run in canonical order
+gauntletgate all          # the full stage-gate (also the bare-command default)
+gauntletgate lite
+gauntletgate walkthrough
+gauntletgate full
+gauntletgate lite walkthrough     # any combination, run in canonical order
 ```
+
+In CoWork/Claude-style agents, use the slash-command form from the installed skill.
 
 ---
 
@@ -129,8 +138,9 @@ This standard lives once in the shared backbone; all three lanes obey it.
   pass.
 - `full`/`all` fan out 5 subagents (billed, multi-agent opt-in). `lite` and
   `walkthrough` are light and inline.
-- Written for and verified against Claude Code and Codex; the method is agent-agnostic
-  but assumes an agent that can run Playwright and read your repo.
+- Written for and verified against Codex Desktop and CoWork/Claude-style agents; the
+  method is agent-agnostic but assumes an agent that can run Playwright and read
+  your repo.
 
 ---
 

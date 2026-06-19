@@ -28,7 +28,7 @@
 
   <!-- command -->
   <rect class="cmd" x="300" y="92" width="300" height="56" rx="10"/>
-  <text class="tb" x="450" y="118" text-anchor="middle">/gauntletgate &lt;args&gt;</text>
+  <text class="tb" x="450" y="118" text-anchor="middle">gauntletgate &lt;args&gt;</text>
   <text class="sm" x="450" y="137" text-anchor="middle">all · lite · walkthrough · full · any combo  (bare = all)</text>
 
   <!-- dispatch arrows to lanes -->

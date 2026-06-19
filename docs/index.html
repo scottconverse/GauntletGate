@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>GauntletGate — an adversarial stage-gate your product must survive to advance</title>
-<meta name="description" content="One command, three lanes. A Claude Code / Codex skill that gates a stage, sprint, or release — and won't clear a product that's broken for new users."/>
+<meta name="description" content="One gate, three lanes. A Codex Desktop and CoWork/Claude-style skill that gates a stage, sprint, or release — and won't clear a product that's broken for new users."/>
 <style>
   :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--ink:#e6edf3;--mut:#9198a1;--acc:#f59e0b;--accink:#1a1206;--blue:#58a6ff;--ok:#3fb950;--bad:#ff7b72;}
   *{box-sizing:border-box}
@@ -42,9 +42,9 @@
 </head>
 <body>
 <header><div class="wrap">
-  <div class="tag">v0.2.0 · MIT · Claude Code &amp; Codex skill</div>
+  <div class="tag">v0.3.0 · MIT · Codex Desktop &amp; CoWork/Claude skill</div>
   <h1>An adversarial <span class="em">stage-gate</span> your product must survive to advance.</h1>
-  <p class="sub">GauntletGate is one command with three lanes. Run it at the end of a stage, sprint, or release —
+  <p class="sub">GauntletGate is one gate with three lanes. Run it at the end of a stage, sprint, or release —
     the product doesn't advance until it passes. It reads your repo as truth, drives your app with Playwright, and
     <strong>won't clear a product that's broken for a brand-new user.</strong></p>
   <div class="btns">
@@ -55,7 +55,7 @@
 
 <section><div class="wrap">
   <h2>One command, three lanes</h2>
-  <p class="lead"><code>/gauntletgate &lt;args&gt;</code> — pick any subset. Bare <code>/gauntletgate</code> = <code>all</code>.</p>
+  <p class="lead"><code>gauntletgate &lt;args&gt;</code> — pick any subset. Bare <code>gauntletgate</code> = <code>all</code>.</p>
   <table>
     <tr><th>arg</th><th>lane</th><th>what it does</th><th>weight</th></tr>
     <tr><td><code>lite</code></td><td>Lite</td><td>fast single-pass on a change/slice (first-run-aware)</td><td>light, inline</td></tr>
@@ -94,19 +94,16 @@
 
 <section><div class="wrap">
   <h2>Install &amp; run</h2>
-  <pre>python install.py            # -> ~/.claude/skills/gauntletgate/  (Claude Code, every project)
-# or project-only:
-python install.py --project /path/to/your/project
-
-# then, in a fresh session:
-/gauntletgate all            # the full stage-gate
-/gauntletgate lite | walkthrough | full | &lt;any combination&gt;</pre>
+  <pre>python install.py                # auto-detect Codex or CoWork/Claude
+python install.py --app codex    # -> ~/.codex/skills/gauntletgate/
+python install.py --app cowork   # -> ~/.claude/skills/gauntletgate/
+python install.py --project PATH # project-local install using the selected format</pre>
 </div></section>
 
 <section><div class="wrap">
   <h2>Honest about what it is</h2>
   <div class="note">A <strong>skill</strong> — Markdown instructions an AI agent follows — not a binary or CI job.
-    Written for and verified against Claude Code and Codex; the method assumes an agent that can run Playwright and
+    Written for and verified against Codex Desktop and CoWork/Claude-style agents; the method assumes an agent that can run Playwright and
     read your repo. It makes the first-run pass mandatory, gates the verdict on a verified attestation, and forbids a
     partial run from claiming CLEAR TO ADVANCE — the strongest a skill can be — but it relies on the agent executing
     it faithfully. It audits; it doesn't change your code unless you explicitly switch it to repair mode.

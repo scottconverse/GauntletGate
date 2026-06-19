@@ -3,7 +3,7 @@
 A single-pass review for a small change, a slice, or a recent diff — same severity
 framework and honesty bar as the heavy lanes, compressed into one sitting. Built to
 run *between* fixes during a stage without breaking flow. On its own it is a quick
-check; inside `/gauntletgate all` it is the warm-up/feeder, **not** the advancement
+check; inside `gauntletgate all` it is the warm-up/feeder, **not** the advancement
 gate.
 
 Apply `references/shared-backbone.md` (severity framework always; the first-run rule

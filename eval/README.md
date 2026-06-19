@@ -43,7 +43,7 @@ In an agent session with the skill installed:
 
 1. Start the sample app with the dependency **absent**:
    `python eval/sample-app/app.py 8799` (do **not** set `GAUNTLET_SAMPLE_BACKEND`).
-2. Run `/gauntletgate walkthrough` pointed at `http://127.0.0.1:8799`.
+2. Run `gauntletgate walkthrough` pointed at `http://127.0.0.1:8799`.
 3. **Expected:** the run constructs/verifies the dependency-absent first-run state,
    finds the core action unreachable, files it as a **Blocker**, and the verdict is
    **DO NOT ADVANCE** with a valid environment attestation.
