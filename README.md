@@ -2,7 +2,7 @@
 
 **An adversarial stage-gate your product must survive to advance.**
 
-Version 0.2.0 · MIT licensed · a skill for Codex Desktop and CoWork/Claude-style agents
+Version 0.3.0 · MIT licensed · a skill for Codex Desktop and CoWork/Claude-style agents
 
 > **What it is, honestly.** GauntletGate is a *skill* — a Markdown instruction set
 > an AI coding agent loads and follows. It is not a binary, a CI job, or a service.

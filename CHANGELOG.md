@@ -4,7 +4,7 @@ All notable changes to GauntletGate are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/); versioning is
 [SemVer](https://semver.org/).
 
-## [Unreleased]
+## [0.3.0] — 2026-06-18
 
 ### Changed
 - **Installer app selection:** `install.py` now supports Codex Desktop and

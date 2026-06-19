@@ -1,6 +1,6 @@
 # GauntletGate — Manual
 
-Version 0.2.0
+Version 0.3.0
 
 GauntletGate is an adversarial **stage-gate**: a product runs the gauntlet to earn
 the right to advance to the next stage, sprint, or release. This manual covers what
