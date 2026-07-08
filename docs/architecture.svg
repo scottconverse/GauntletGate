@@ -53,7 +53,7 @@
   <!-- FULL -->
   <rect class="lane" x="652" y="198" width="280" height="96" rx="10"/>
   <text class="pill" x="670" y="224">FULL</text>
-  <text class="sm" x="670" y="246">5-role adversarial deep audit</text>
+  <text class="sm" x="670" y="246">5-role rigorous deep audit</text>
   <text class="sm" x="670" y="264">eng · security · perf · tests · docs · QA</text>
   <text class="accT" x="670" y="284">heavy · multi-agent · billed</text>
 
@@ -100,6 +100,6 @@
   <text class="tb" x="750" y="828" text-anchor="middle" fill="#d92d20">⛔ DO NOT ADVANCE</text>
   <text class="sm" x="750" y="848" text-anchor="middle">any Blocker/Critical or INVALID first-run</text>
 
-  <text class="sub" x="40" y="912">Amber = the first-run discipline ordinary checks skip.  Adversarial by default: the gate's job is to block advancement, not wave it through.</text>
+  <text class="sub" x="40" y="912">Amber = the first-run discipline ordinary checks skip.  Skeptical by default: the gate's job is to block advancement, not wave it through.</text>
   <text class="sub" x="40" y="934">Audit-only: GauntletGate does not modify product source unless explicitly switched to repair mode.</text>
 </svg>

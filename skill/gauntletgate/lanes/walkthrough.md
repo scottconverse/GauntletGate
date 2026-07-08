@@ -1,6 +1,6 @@
 # Lane: Walkthrough
 
-A Playwright-driven runtime audit of the product as a real (and adversarial) user —
+A Playwright-driven runtime audit of the product as a real, skeptical user —
 with the **first-run discipline** from `references/shared-backbone.md` as its spine.
 This lane is the authority on first-run truth and interface wiring. When the Full
 lane also runs, **this lane's report is Full's input** — Full reads it instead of
@@ -34,14 +34,14 @@ Before general exploration, construct and walk the states a new user hits:
 - **Provisioning matrix:** `{first-run vs returning} × {dependency present vs ABSENT}
   × {data empty vs populated} × {offline vs online}`. The dependency-ABSENT row is
   mandatory. State which cells you covered.
-- **Construct states deliberately** — kill the dependency, clear the store, remove
+- **Construct states deliberately** — stop the dependency, clear the store, remove
   the license, disconnect the network, reset first-run flags. Record what the UI did
   (guided / degraded / dead-ended / errored silently).
 
 ### 4. Explore with Playwright
 All routes, forms, state-changing actions, modals/menus/wizards; empty/loading/error/
 success/disabled states; back/forward, refresh, desktop + mobile viewports. Click
-every meaningful control. Adversarial paths: invalid/empty input, interrupted flows,
+every meaningful control. Stress paths: invalid/empty input, interrupted flows,
 repeated submits, stale navigation.
 
 ### 5. Cross-check wiring

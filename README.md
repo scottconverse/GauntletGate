@@ -1,6 +1,6 @@
 # GauntletGate
 
-**An adversarial stage-gate your product must survive to advance.**
+**A rigorous stage-gate your product must survive to advance.**
 
 Version 0.3.0 · MIT licensed · a skill for Codex Desktop and CoWork/Claude-style agents
 
@@ -16,7 +16,7 @@ Version 0.3.0 · MIT licensed · a skill for Codex Desktop and CoWork/Claude-sty
 ## The idea
 
 At the end of a stage, sprint, or before a release, you run the gauntlet. The
-product doesn't advance until it passes. The gate is **adversarial by default** — its
+product doesn't advance until it passes. The gate is **skeptical by default** — its
 job is to *block* advancement until the product is genuinely ready, not to wave it
 through.
 
@@ -31,7 +31,7 @@ Ask your agent to run `gauntletgate <args>`; `args` is any subset of:
 |-----|------|--------------|--------|
 | `lite` | **Lite** | fast single-pass review of a change/slice (first-run-aware) | light, inline |
 | `walkthrough` | **Walkthrough** | first-run-truth + interface-wiring runtime audit | light–medium, inline |
-| `full` | **Full** | 5-role adversarial deep audit (eng / security / perf / tests / docs / QA) | **heavy, multi-agent, billed** |
+| `full` | **Full** | 5-role rigorous deep audit (eng / security / perf / tests / docs / QA) | **heavy, multi-agent, billed** |
 | `all` | all three | Lite → Walkthrough → Full, then one gate verdict | **heavy** |
 
 - **Bare `gauntletgate` = `all`** — the product is the full gauntlet.
@@ -108,7 +108,7 @@ GauntletGate is honest that it's currently **strong guidance, not a mechanical l
 
 ## Provenance
 
-The **Full** lane's five-role adversarial method isn't invented here — it's distilled
+The **Full** lane's five-role rigorous method isn't invented here — it's distilled
 from a multi-role audit methodology (Principal Engineer · UI/UX · Technical Writer ·
 Test · QA) that has been run as a stage-close audit on real projects. The
 **Walkthrough** lane's first-run discipline likewise comes from a real production miss

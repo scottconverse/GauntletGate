@@ -6,7 +6,7 @@ Discussions*, then paste each post into its category.
 
 ---
 
-## 📣 Announcements — "GauntletGate 0.3.0: Codex-aware install support for the adversarial stage-gate"
+## 📣 Announcements — "GauntletGate 0.3.0: Codex-aware install support for the rigorous stage-gate"
 
 Most quality checks run on the machine the product was built on — database seeded,
 dependencies running, settings filled in. So they audit a product that already
@@ -20,7 +20,7 @@ CoWork/Claude-style agents):
 - `gauntletgate walkthrough` — a first-run-truth + interface-wiring runtime audit
   that *verifies* the real first-run state and walks the product with dependencies
   absent.
-- `gauntletgate full` — a 5-role adversarial deep audit that consumes the
+- `gauntletgate full` — a 5-role rigorous deep audit that consumes the
   walkthrough report instead of re-walking the UI.
 - `gauntletgate all` (the default) — all three, then one verdict.
 
