@@ -76,5 +76,5 @@ Honest signal — not filler.
 - [ ] Environment attestation filled with verified facts **and linked to on-disk evidence artifacts** (or first-run marked INVALID — no artifact = unverified).
 - [ ] First-run reachability for a brand-new user is stated; a dead-end on the core feature is a Blocker.
 - [ ] If `full`/`all` ran: all 5 in-scope roles ran (or the gap is documented); deep-dives exist; cross-role findings noted.
-- [ ] Every Blocker/Critical has evidence, blast radius, and a fix path.
+- [ ] Every Blocker/Critical has evidence, impact scope, and a fix path.
 - [ ] What's-working is present (the report isn't all-red).

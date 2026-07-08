@@ -69,6 +69,6 @@ coverage is **INVALID** while a UI/onboarding/dependency surface is in scope, em
 - If a lane could not run (app won't start, dependency couldn't be removed, no
   multi-agent budget for `full`), say so plainly and mark that coverage as a gap —
   a gap is not a pass.
-- The gate is **adversarial by default**: its job is to *block* advancement, not to
+- The gate is **skeptical by default**: its job is to *block* advancement, not to
   find reasons to wave it through. Credit what works (honest signal), but the bar is
   the bar.

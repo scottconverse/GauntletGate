@@ -85,5 +85,5 @@ Readiness by area:
 - [x] Environment attestation filled with verified facts and linked to on-disk artifacts.
 - [x] First-run reachability stated; the dead-end on the core feature is filed as a Blocker.
 - [ ] full/all ran — N/A this run (walkthrough only).
-- [x] The Blocker has evidence, blast radius (the whole new-user funnel), and a fix path.
+- [x] The Blocker has evidence, impact scope (the whole new-user funnel), and a fix path.
 - [x] What's-working is present.

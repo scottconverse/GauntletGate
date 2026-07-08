@@ -53,7 +53,7 @@ release was the new golden eval passing.
 ## [0.1.0] — 2026-06-17
 
 Initial public release. GauntletGate began as **FirstRunWalkthrough** and absorbed a
-lite single-pass lane and a five-role adversarial audit lane into one stage-gate.
+lite single-pass lane and a five-role rigorous audit lane into one stage-gate.
 
 ### Added
 - **The `gauntletgate` skill** (`skill/gauntletgate/SKILL.md`) — one command,
@@ -63,7 +63,7 @@ lite single-pass lane and a five-role adversarial audit lane into one stage-gate
   - **Lite** — fast single-pass on a change/slice, first-run-aware.
   - **Walkthrough** — first-run-truth + interface-wiring runtime audit; verifies the
     real first-run / dependency-absent state.
-  - **Full** — 5-role adversarial deep audit that **consumes the Walkthrough report**
+  - **Full** — 5-role rigorous deep audit that **consumes the Walkthrough report**
     instead of re-walking the UI.
 - **Shared backbone** (`references/shared-backbone.md`) — one source of truth for the
   first-run rule, the environment-provisioning attestation, and the severity

@@ -2,7 +2,7 @@
 
 Version 0.3.0
 
-GauntletGate is an adversarial **stage-gate**: a product runs the gauntlet to earn
+GauntletGate is a rigorous **stage-gate**: a product runs the gauntlet to earn
 the right to advance to the next stage, sprint, or release. This manual covers what
 it is, how to run it, the three lanes, the architecture, the verdict, the first-run
 discipline that is its spine, and its honest limits.
@@ -20,7 +20,7 @@ run.
 go/no-go: *is this ready to advance — including for a brand-new user — or does it
 only work on the machine it was built on?*
 
-It is **adversarial by default**: its job is to block advancement until the product
+It is **skeptical by default**: its job is to block advancement until the product
 is genuinely ready, not to find reasons to wave it through.
 
 > **Read this up front (full detail in §7):** GauntletGate is *guidance an agent
@@ -66,7 +66,7 @@ In CoWork/Claude-style agents, use the slash-command form from the installed ski
 |------|--------------|--------|
 | **Lite** | Fast single-pass on a change/slice — same severity bar, compressed. First-run-aware. | light, inline |
 | **Walkthrough** | First-run-truth + interface-wiring runtime audit. Constructs and **verifies** the first-run state; walks the product with dependencies **absent**; produces the environment attestation and the "can a new user reach the core feature?" verdict. | light–medium, inline |
-| **Full** | Five-role adversarial deep audit (Principal Engineer, UI/UX, Technical Writer, Test Engineer, QA Engineer). **Consumes the Walkthrough report** instead of re-walking the UI. | **heavy — 5-agent fan-out, billed, needs multi-agent opt-in** |
+| **Full** | Five-role rigorous deep audit (Principal Engineer, UI/UX, Technical Writer, Test Engineer, QA Engineer). **Consumes the Walkthrough report** instead of re-walking the UI. | **heavy — 5-agent fan-out, billed, needs multi-agent opt-in** |
 
 The lanes are defined in `skill/gauntletgate/lanes/{lite,walkthrough,full}.md`.
 
@@ -163,5 +163,5 @@ call, never a way to skip a first-run surface that does exist.
 **Will it change my code?** No, not in audit mode.
 
 **Why fold three skills into one?** So an end-of-stage gate is a single, consistent,
-adversarial decision — with one first-run standard and one severity scale — instead of
+rigorous decision — with one first-run standard and one severity scale — instead of
 three checks you have to remember to run and reconcile by hand.

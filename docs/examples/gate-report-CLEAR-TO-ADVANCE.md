@@ -71,5 +71,5 @@ None. (0 Blocker / 0 Critical.)
 - [x] Attestation filled with verified facts + linked artifacts.
 - [x] First-run reachability stated (✅ reaches core feature).
 - [x] All 5 roles ran; deep-dives exist; cross-role findings checked (none Blocker/Critical).
-- [x] Every finding has evidence + fix path; Majors have blast radius.
+- [x] Every finding has evidence + fix path; Majors have impact scope.
 - [x] What's-working present.

@@ -1,11 +1,11 @@
 ---
 name: gauntletgate
-description: Run the GauntletGate stage-gate — an adversarial end-of-stage/sprint/release gauntlet a product must pass to advance. Dispatches to three lanes (lite, walkthrough, full) by argument. Use when asked to gate a stage/sprint/release, run the gauntlet, do a readiness/advancement check, or run any of "gauntletgate all | lite | full | walkthrough" or a combination.
+description: Run the GauntletGate stage-gate — a rigorous end-of-stage/sprint/release gauntlet a product must pass to advance. Dispatches to three lanes (lite, walkthrough, full) by argument. Use when asked to gate a stage/sprint/release, run the gauntlet, do a readiness/advancement check, or run any of "gauntletgate all | lite | full | walkthrough" or a combination.
 ---
 
 # GauntletGate
 
-An adversarial **stage-gate**. A product runs the gauntlet to earn the right to
+A rigorous **stage-gate**. A product runs the gauntlet to earn the right to
 advance to the next stage, sprint, or release. GauntletGate's job is to *block*
 advancement until the product is genuinely ready — not to rubber-stamp it.
 
@@ -22,7 +22,7 @@ space-separated subset of:
 |-----|------|--------------|--------|
 | `lite` | Lite | fast single-pass review of a change/slice (first-run-aware) | light, inline |
 | `walkthrough` | Walkthrough | first-run-truth + interface-wiring runtime audit | light–medium, inline |
-| `full` | Full | 5-role adversarial deep audit (eng/security/perf/tests/docs/QA) | **heavy, multi-agent, billed** |
+| `full` | Full | 5-role rigorous deep audit (eng/security/perf/tests/docs/QA) | **heavy, multi-agent, billed** |
 | `all` | all three | Lite → Walkthrough → Full, then one gate verdict | **heavy** |
 
 - **Bare `gauntletgate` (no arg) = `all`.** The product *is* the full gauntlet.
@@ -57,7 +57,7 @@ explicitly). Never silently fire a 5-role fan-out.
    walks the product with dependencies **absent**, and produces the environment
    attestation + the "can a new user reach the core feature?" verdict. Its report
    is an input to Full.
-3. **Full** (if selected) — the 5-role adversarial audit. **It consumes the
+3. **Full** (if selected) — the 5-role rigorous audit. **It consumes the
    Walkthrough report** (when Walkthrough ran) instead of re-walking the UI, and
    spends its effort on engineering, security, performance, tests, docs, and the
    API/protocol layers Walkthrough doesn't cover.

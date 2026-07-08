@@ -34,7 +34,7 @@ Don't pad. If a dimension doesn't apply, say so in one line and move on.
 ## Output (single report)
 - TL;DR verdict — ship / ship-with-caveats / don't ship — honest.
 - Severity roll-up + findings (dimension, severity, evidence, why-it-matters, fix
-  path; blast radius for Blocker/Critical).
+  path; impact scope for Blocker/Critical).
 - A one-line environment note (ran against: fresh/provisioned; dependency
   present/absent — verified how) when a first-run surface was in scope.
 - **What's working** (specific, credited).
