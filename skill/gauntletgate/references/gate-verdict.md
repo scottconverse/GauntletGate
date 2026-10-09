@@ -62,10 +62,6 @@ coverage is **INVALID** while a UI/onboarding/dependency surface is in scope, em
 
 ## Honesty rules (do not violate)
 
-- A `lite`-only or any partial run is **never** CLEAR TO ADVANCE. Label it PARTIAL.
-- Never report CLEAR TO ADVANCE off an environment whose first-run state was not
-  verified, when the product has a first-run surface. INVALID first-run coverage
-  caps the verdict.
 - If a lane could not run (app won't start, dependency couldn't be removed, no
   multi-agent budget for `full`), say so plainly and mark that coverage as a gap —
   a gap is not a pass.

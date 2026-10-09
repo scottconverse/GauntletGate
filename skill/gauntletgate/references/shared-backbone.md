@@ -101,7 +101,7 @@ Severity = impact × exposure. Use exactly these five labels.
   across surfaces; an architecture choice that forces a refactor in 6–12 months.
 - **Minor** — nice to fix. Dead code, naming, a single skipped test on a
   non-critical feature.
-- **Nit** — preference, not a defect. Mention once; never pad the count with Nits.
+- **Nit**: preference, not a defect. Mention once and do not inflate the count, because Nits dilute the roll-up.
 
 Security findings are Critical or Blocker by default unless exposure is genuinely
 theoretical. Don't inflate (everything-Critical destroys credibility) or soften
