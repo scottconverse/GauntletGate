@@ -27,7 +27,7 @@ space-separated subset of:
 
 - **Bare `gauntletgate` (no arg) = `all`.** The product *is* the full gauntlet.
 - **Any combination** is allowed: `gauntletgate lite walkthrough`, `gauntletgate walkthrough full`, etc. Run exactly the named lanes, in canonical order (lite → walkthrough → full).
-- If an argument is not recognized, show the table and ask which lanes to run.
+- Unrecognized args: print this table and stop.
 
 ## Before you run — read these (always)
 
