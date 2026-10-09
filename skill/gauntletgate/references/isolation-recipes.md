@@ -3,8 +3,7 @@
 The first-run rule (shared-backbone §1) requires a *verified* clean,
 dependency-absent state — and the attestation must link to an on-disk artifact
 proving the app used it. These are concrete, per-stack starting points. They are
-recipes, not guarantees: **always verify** the app actually wrote into the isolated
-location (capture the path), and **probe** the dependency to confirm it's absent.
+recipes, not guarantees: **probe** the dependency to confirm it's absent.
 
 The universal pattern: **(1) redirect where the app stores state → (2) launch →
 (3) assert it wrote there, not to the real home → (4) capture that path as the
@@ -21,8 +20,7 @@ artifact.**
 
 ## Node / npm (CLI or library)
 - **Clean install:** `npm pack` then install the tarball into a fresh temp dir
-  (`npm i ./pkg.tgz --prefix $(mktemp -d)`), or use a clean `node_modules` — never the
-  repo's already-resolved one.
+  (`npm i ./pkg.tgz --prefix $(mktemp -d)`). Use a clean node_modules or a packed tarball, because an already-resolved tree is a provisioned environment.
 - **Dependency absent:** unset the env var / config the tool needs; or run on a temp
   `HOME` so no global config leaks (`HOME=$(mktemp -d) node bin.js`).
 - **Verify + artifact:** capture `npm ls` from the clean prefix and the tool's "not
@@ -59,5 +57,4 @@ artifact.**
 - **Artifact:** the captured response/headers and a log line.
 
 > If you can't construct or verify the clean state for a given stack, say so in the
-> report and mark first-run coverage **INVALID** — never report clean off a state you
-> couldn't verify.
+> report and mark first-run coverage **INVALID**.

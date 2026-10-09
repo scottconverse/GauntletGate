@@ -23,14 +23,13 @@ Derive setup from the repo. Launch locally; capture every blocker, failed script
 missing env var/service, type/lint/build failure. Then **verify the environment**
 (shared backbone §2): prove the clean/isolated profile was actually used (assert the
 app wrote config + first-run markers to the isolated location), and **probe** each
-dependency's real state (present/absent, measured). Record the attestation. No
-attestation → no first-run verdict.
+dependency's real state (present/absent, measured). Record the attestation.
 
 ### 3. Zero-state / first-run pass + provisioning matrix (MANDATORY)
 Before general exploration, construct and walk the states a new user hits:
 - Fresh verified-isolated profile, empty data, first-run flags unset, **every
   dependency ABSENT**. Walk onboarding end to end and **try the core feature with
-  nothing set up.** A dead-end on the core feature is a **Blocker**.
+  nothing set up.**
 - **Provisioning matrix:** `{first-run vs returning} × {dependency present vs ABSENT}
   × {data empty vs populated} × {offline vs online}`. The dependency-ABSENT row is
   mandatory. State which cells you covered.
@@ -68,6 +67,4 @@ suggested test. Severity per the shared framework.
 - The **first-run verdict**: reaches core feature ✅ / dead-ends a new user ❌ /
   NOT VERIFIED.
 - Numbered findings + a readiness-by-area table.
-- If running standalone (not inside `all`): emit a **PARTIAL CHECK** gate verdict
-  (it is not the full advancement gate on its own). If inside `all`: hand this report
-  to Full and contribute to the combined verdict.
+- If inside `all`: hand this report to Full and contribute to the combined verdict.

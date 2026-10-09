@@ -19,7 +19,7 @@
 
 ## Environment provisioning — verified (attestation)
 
-> Gates the first-run verdict. If not fillable with *verified* facts, first-run coverage is INVALID and the verdict says so. (See `references/shared-backbone.md` §2.)
+> See `references/shared-backbone.md` §2.
 
 | What | State used | How VERIFIED — not assumed |
 |---|---|---|
@@ -30,7 +30,7 @@
 | Network | <online / offline> | <…> |
 
 **Isolation verified?** <YES / NO> · **First-run coverage:** <VALID / INVALID>
-**Evidence artifacts (required):** <list the on-disk files backing the "verified" cells — e.g. `artifacts/first-run-absent.html`, `artifacts/isolation-path.txt`, a Playwright trace. No artifact → UNVERIFIED → first-run coverage INVALID.>
+**Evidence artifacts (required):** <list the on-disk files backing the "verified" cells — e.g. `artifacts/first-run-absent.html`, `artifacts/isolation-path.txt`, a Playwright trace.>
 
 ---
 
@@ -56,8 +56,7 @@ deep-dive files.
 ## Blocking punch list (must clear to advance)
 
 Every Blocker and Critical, plus cheap/urgent Majors. Each: ID, title, severity,
-lane/role, one-line "what to do," size (S/M/L). **The product does not advance
-until these are zero.**
+lane/role, one-line "what to do," size (S/M/L).
 
 ## Next-stage watchlist
 

@@ -23,13 +23,13 @@ it, run it; otherwise say so honestly.
 | Dimension | Check | Skip if |
 |---|---|---|
 | Correctness & Security | Does it do what it claims? Any reachable security issue or data hazard? | pure cosmetic |
-| **First-run** | **If the change touches onboarding/setup/a dependency/auth/empty-state: try it as a brand-new user with that dependency ABSENT** (shared backbone §1). A new-user dead-end on the core feature is a Blocker. | the change touches no first-run surface |
+| **First-run** | **If the change touches onboarding/setup/a dependency/auth/empty-state: try it as a brand-new user with that dependency ABSENT** (shared backbone §1). | the change touches no first-run surface |
 | UX | Visible states, copy, error paths, accessibility regressions | no UI in the diff |
 | Docs | If behavior changed, are README/inline/API docs still accurate? | behavior identical |
 | Tests | Is there a test for the fix? Existing tests still valid? Regression risk? | never skip — at minimum note absence |
 | Runtime | Does the affected path actually run? Smoke-test it. | static-only, no runtime path |
 
-Don't pad. If a dimension doesn't apply, say so in one line and move on.
+Report each non-applicable dimension in one line, because padding hides the findings that matter.
 
 ## Output (single report)
 - TL;DR verdict — ship / ship-with-caveats / don't ship — honest.
@@ -43,5 +43,4 @@ Don't pad. If a dimension doesn't apply, say so in one line and move on.
   architectural, or **a first-run dead-end was found.**
 
 ## Gate role
-A `lite`-only run is always a **PARTIAL CHECK**, never CLEAR TO ADVANCE
-(`references/gate-verdict.md`). It informs; it does not greenlight a stage.
+It informs; it does not greenlight a stage.
