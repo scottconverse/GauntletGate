@@ -1,3 +1,5 @@
+> **Archived October 17, 2026.** Canonical copy: `skills/gauntletgate-lite/` in [dev-rigor-stack-lite](https://github.com/scottconverse/dev-rigor-stack-lite). As of [commit 9855340](https://github.com/scottconverse/dev-rigor-stack-lite/commit/9855340) CLEAR TO ADVANCE again requires both the walkthrough and full lanes (no N/A shortcut), and the `eval/` harness (lint + loopback eval) and the two example gate reports are carried over. The standalone `install.py`, landing page and manual were not carried over. Install from -lite. This repository is read-only; history and issues are preserved.
+
 # GauntletGate
 
 **A rigorous stage-gate your product must survive to advance.**
